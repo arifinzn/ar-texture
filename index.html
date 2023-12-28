@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Textures - A-Frame School</title>
+    <meta name="description" content="Textures - A-Frame School" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="js/aframe-particle-system-component.min.js"></script>
+
+  </head>
+
+  <body>
+    <a-scene
+      do-something
+      particle-system="preset: dust; particleCount: 10000;size:0.3;opacity:0.8"
+    >
+      <a-sky src="assets/8k_stars_milky_way.jpg"></a-sky>
+      <a-mixin
+        id="sunlight"
+        geometry="primitive: sphere; radius: 5"
+        material="color: #FFF; shader: flat"
+        light="color: #FFF; intensity: 2; type: point;penumbra:5;castShadow: true;"
+      ></a-mixin>
+
+      <a-mixin
+        id="rotation"
+        animation="property: rotation; loop: true; from:  0 0 0; to: 0 360 0; dur: 50000; easing: linear;"
+      ></a-mixin>
+
+      <a-mixin
+        id="orbit"
+        animation="property: rotation; loop: true; to: 0 360 0; dur: 70000; easing: linear;"
+      ></a-mixin>
+
+      <a-entity
+        geometry="primitive: torus; radius: 45; radiusTubular: 0.001;segmentsTubular: 450"
+        material="color: #FFF;opacity: 1"
+        rotation="90 0 0"
+        scale="2 2 0.1"
+      ></a-entity>
+
+      <a-sphere
+        src="assets/2k_sun.jpg"
+        radius="30"
+        mixin="sunlight rotation"
+        segments-height="52"
+        position="0 0 0"
+      >
+      </a-sphere>
+
+      <a-entity id="orbit-earth"  animation="dur: 100000;">
+        <a-entity id="earth-and-moon" position="-90 0 0">
+          <a-entity id="earth-container" shadow="cast: true;receive: true">
+            <a-sphere
+              position="0 0 0"
+              radius="1"
+              id="earth"
+              src="assets/1_earth_8k.jpg"
+              mixin="rotation"
+            ></a-sphere>
+            <a-entity id="moon-container" mixin="orbit" shadow="cast: true;receive: true">
+              <a-sphere position="-2 0 0" mixin="rotation" radius=".10" id="moon" src="assets/2k_moon.jpg"></a-sphere>
+            </a-entity>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+
+      <a-light type="ambient" color="#000"></a-light>
+      <!-- <a-light type="directional" intensity="1" position="0 0 5" penumbra="0" angle="0" distance="0"></a-light> -->
+
+      <a-camera position="-90 0.2 -2" user-height="0"></a-camera>
+    </a-scene>
+  </body>
+</html>
